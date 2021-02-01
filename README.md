@@ -13,7 +13,7 @@
 
 Pypi
 ```
-pip install iad
+pip install iad.py
 ```
 
 From GitHub

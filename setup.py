@@ -5,7 +5,7 @@ with open("README.md", "r") as desc:
 
 setup(
     name='iad.py',
-    version='1.0.1',
+    version='1.0.2',
     lisence='MIT',
     description='A Python Wrapper for the im-a-dev.xyz uploader.',
     long_description=long_desc,

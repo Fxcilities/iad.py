@@ -16,5 +16,10 @@ This file will contain all the changes in every version.
 ### Fixed
 - Readme spelling 😒
 
+## [1.0.2]
+### Fixed
+- Readme examples (Yes more readme ;-;)
+
 [1.0.0]: https://github.com/Fxcilities/iad.py/releases/tag/1.0.0
 [1.0.1]: https://github.com/Fxcilities/iad.py/releases/tag/1.0.1
+[1.0.2]: https://github.com/Fxcilities/iad.py/releases/tag/1.0.2
