@@ -38,7 +38,7 @@ async def main():
         upload = await uploader.upload(options)
         print(upload.url)
 
-loop = get_event_lop()
+loop = get_event_loop()
 loop.run_until_complete(main())
 ```
 
@@ -52,4 +52,7 @@ uploader = ImADev('token here')
 async def main():
     upload = await uploader.get_upload('filename.png')
     print(upload.url)
+
+loop = get_event_loop()
+loop.run_until_complete(main())
 ```

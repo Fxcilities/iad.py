@@ -2,7 +2,7 @@
 Changelog for iad.py
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
-This file will contain all the changes for every version.
+This file will contain all the changes in every version.
 
 ## [1.0.0]
 ### Added
