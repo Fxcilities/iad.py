@@ -12,4 +12,4 @@ This file will contain all the changes for every version.
 - Initial rate limiting
 - `ImADev.upload` and `ImADev.get_upload` async methods
 
-[1.0.0]: https://github.com/Fxcilities/iad.py/releases/tags/v1.0.0
+[1.0.0]: https://github.com/Fxcilities/iad.py/releases/tag/1.0.0
