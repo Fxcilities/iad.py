@@ -5,7 +5,7 @@
 ### iadpy is a wrapper for the [Im A Dev](https://im-a-dev.xyz) file uploader in python.
 
 - Async wrapper (`async`, `await`)
-- Rate limiting
+- Proper rate limiting
 
 ## Usage
 

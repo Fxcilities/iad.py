@@ -1,11 +1,15 @@
 import asyncio
-from aiohttp import ClientSession
-from ..request import Request
-import PIL
+from datetime import datetime
 from io import BytesIO
 from typing import Tuple
-from .upload import Upload
+
+import PIL
+from aiohttp import ClientSession
+
 from ..errors import RequestError
+from ..request import Request
+from .upload import Upload
+from ..ratelimit import RateLimiter
 
 
 class ImADev:
@@ -13,10 +17,7 @@ class ImADev:
 
         self.token = token
         self._http = ClientSession()
-        self._ratelimits = {
-            "upload": None,
-            "get_upload": None
-        }
+        self._http = RateLimiter(self._http)
 
         if self.token is None:
             raise ValueError('No token specified')
@@ -42,9 +43,12 @@ class ImADev:
         json = await req.json()
 
         try:
-            return Upload(json['filename'], json['username'], json['url'].replace("\\", ""))
+            return Upload(json['filename'], json['username'], json['url'].replace("\\", ""), datetime.now())
         except:
-            raise RequestError(json['error'])
+            if 'error' in json:
+                raise RequestError(json['error'])
+            else:
+                raise RequestError('fatal error uploading.')
 
     async def get_upload(self, filename: str = None):
         if filename is None:
@@ -54,8 +58,16 @@ class ImADev:
 
         payload = {
             'token': self.token,
-            'endpoint': 'get_upload'
+            'endpoint': 'get_upload',
+            'filename': filename
         }
 
         req = Request(self._http, 'upload.php', 'POST', data=payload)
-        return await req.read()
+        json = await req.json()
+        try:
+            return Upload(json['filename'], json['username'], json['url'].replace("\\", ""), datetime.strptime(json['uploaded_at'], '%B %d %Y %H:%M:%S'))
+        except:
+            if 'error' in json:
+                raise RequestError(json['error'])
+            else:
+                raise RequestError('fatal error getting upload info.')
