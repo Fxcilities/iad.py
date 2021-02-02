@@ -27,7 +27,7 @@ class RateLimiter:
 
     async def wait_for_token(self):
         while self.tokens <= 1:
-            await self.add_token()
+            self.add_token()
             await asyncio.sleep(1)
         self.tokens -= 1
 
