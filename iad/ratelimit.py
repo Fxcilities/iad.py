@@ -31,7 +31,7 @@ class RateLimiter:
             await asyncio.sleep(1)
         self.tokens -= 1
 
-    async def add_token(self):
+    def add_token(self):
         now = time.monotonic()
         since_updated = now - self.updated_at
         new_tokens = since_updated * self.RATE
