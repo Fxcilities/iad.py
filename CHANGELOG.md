@@ -20,6 +20,11 @@ This file will contain all the changes in every version.
 ### Fixed
 - Readme examples (Yes more readme ;-;)
 
+## [1.0.3]
+### Added
+- Better error handling (`iad.errors`)
+
 [1.0.0]: https://github.com/Fxcilities/iad.py/releases/tag/1.0.0
 [1.0.1]: https://github.com/Fxcilities/iad.py/releases/tag/1.0.1
 [1.0.2]: https://github.com/Fxcilities/iad.py/releases/tag/1.0.2
+[1.0.3]: https://github.com/Fxcilities/iad.py/releases/tag/1.0.3

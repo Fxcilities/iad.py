@@ -6,13 +6,17 @@ from typing import Tuple
 import PIL
 from aiohttp import ClientSession
 
-from ..errors import RequestError
+from ..errors import (InvalidContentType, InvalidToken, JsonDecodeException,
+                      RequestError)
+from ..ratelimit import RateLimiter
 from ..request import Request
 from .upload import Upload
-from ..ratelimit import RateLimiter
 
 
 class ImADev:
+
+    DISABLED = ('php', 'html', 'js', 'css', 'ts')
+
     def __init__(self, token: str = None):
 
         self.token = token
@@ -31,6 +35,8 @@ class ImADev:
         if type(file) != bytes:
             raise ValueError('file argument not bytes, got {}'.format(file.__class__.__name__))
 
+        if(data[0] in self.DISABLED):
+            raise InvalidContentType('{} is a API blacklisted file extension.'.format(data[0]))
         
         payload = {
             'token': self.token,
@@ -40,8 +46,10 @@ class ImADev:
         files = { "image": data }
 
         req = Request(self._http, 'upload.php', 'POST', data=payload, files=files)
-        json = await req.json()
-
+        try:
+            json = await req.json()
+        except:
+            raise JsonDecodeException('Failed to decode json from API. Raw content:\n\n' + str(await req.read()))
         try:
             return Upload(json['filename'], json['username'], json['url'].replace("\\", ""), datetime.now())
         except:
@@ -63,7 +71,10 @@ class ImADev:
         }
 
         req = Request(self._http, 'upload.php', 'POST', data=payload)
-        json = await req.json()
+        try:
+            json = await req.json()
+        except:
+            raise JsonDecodeException('Failed to decode json from API. Raw content:\n\n' + await req.read())
         try:
             return Upload(json['filename'], json['username'], json['url'].replace("\\", ""), datetime.strptime(json['uploaded_at'], '%B %d %Y %H:%M:%S'))
         except:
