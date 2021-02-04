@@ -32,17 +32,17 @@ from io import BytesIO
 uploader = ImADev('token here')
 
 async def main():
-	# from file path
+    # from file path
     upload = await uploader.upload('image.png')
     print(upload.url)
-	
-	# from bytes
-	upload = await uploader.upload(bytes_here, file_format='png')
-	print(upload.url)
-	
-	# from buffer
-	upload = await uploader.upload(BytesIO(), file_format='png')
-	print(upload.url)
+    
+    # from bytes
+    upload = await uploader.upload(bytes_here, file_format='png')
+    print(upload.url)
+    
+    # from buffer
+    upload = await uploader.upload(BytesIO(), file_format='png')
+    print(upload.url)
 
 loop = get_event_loop()
 loop.run_until_complete(main())
