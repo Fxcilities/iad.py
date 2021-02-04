@@ -2,7 +2,6 @@ from datetime import datetime
 from io import BytesIO
 from aiohttp import ClientSession
 from os import path
-from typing import Tuple
 from ..errors import JsonDecodeException, RequestError
 from ..ratelimit import RateLimiter
 from ..request import Request
