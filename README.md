@@ -27,16 +27,22 @@ pip install git+https://github.com/Fxcilities/iad.py.git
 ```py
 from iad import ImADev
 from asyncio import get_event_loop
+from io import BytesIO
 
 uploader = ImADev('token here')
 
 async def main():
-    with open('image.png', 'rb') as f:
-        read = f.read()
-        options = ('png', read)
-
-        upload = await uploader.upload(options)
-        print(upload.url)
+    # from file path
+    upload = await uploader.upload('image.png')
+    print(upload.url)
+    
+    # from bytes
+    upload = await uploader.upload(bytes_here, file_format='png')
+    print(upload.url)
+    
+    # from buffer
+    upload = await uploader.upload(BytesIO(), file_format='png')
+    print(upload.url)
 
 loop = get_event_loop()
 loop.run_until_complete(main())
