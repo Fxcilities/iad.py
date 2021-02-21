@@ -15,7 +15,7 @@ class ImADev:
         self._http = RateLimiter(session or ClientSession())
 
     def __repr__(self):
-        return "<ImADev object>"
+        return f"<ImADev token={token}>"
 
     async def upload(self, data, file_format: str = None):
         if isinstance(data, str):
@@ -42,7 +42,7 @@ class ImADev:
             json = await req.json()
         except:
             raise JsonDecodeException(await req.read())
-        try:U
+        try:
             return Upload(json)
         except:
             raise RequestError(json)
