@@ -2,7 +2,7 @@ from datetime import datetime
 from io import BytesIO
 from aiohttp import ClientSession
 from os import path
-from ..errors import JsonDecodeException, RequestError
+from ..errors import JsonDecodeException, RequestError, InvalidContentType
 from ..ratelimit import RateLimiter
 from ..request import Request
 from .upload import Upload
@@ -11,19 +11,23 @@ class ImADev:
     DISABLED = ('php', 'html', 'js', 'css', 'ts')
     def __init__(self, token, session = None):
         assert isinstance(token, str), f"token argument expected str, got {token.__class__.__name__}"
+        
         self.__token = token
         self._http = RateLimiter(session or ClientSession())
 
     def __repr__(self):
-        return f"<ImADev token={token}>"
+        return f"<ImADev token={self.__token}>"
 
     async def upload(self, data, file_format: str = None):
         if isinstance(data, str):
             assert isinstance(data, str), "file_format argument not specified"
             assert path.isfile(data), f"File not found: {data}"
+            
             if (not file_format) or (not isinstance(file_format, str)): # if file format is not specified, we try to find it from the path
                 file_format = data.strip("\\").strip("/").split(".")[-1]
+            
             data = open(data, "rb").read()
+            
         elif isinstance(data, BytesIO):
             data = data.getvalue()
         else:
@@ -32,7 +36,7 @@ class ImADev:
         assert bool(file_format), "file_format argument not specified"
 
         if file_format.lower() in self.DISABLED:
-            raise InvalidContentType(f'{file_format} is an API blacklisted file extension.')
+            raise InvalidContentType(file_format)
 
         req = Request(self._http, 'upload.php', 'POST', data={
             'token': self.__token,

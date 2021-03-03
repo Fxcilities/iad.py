@@ -1,4 +1,6 @@
-class RequestError(Exception):
+class IADError(Exception): pass
+
+class RequestError(IADError):
     def __init__(self, json):
         self.json = json or {}
         super().__init__(json.get("error", "fatal error getting upload info."))
@@ -12,7 +14,11 @@ class RequestError(Exception):
     def __getitem__(self, key):
         return self.json[key]
 
-class JsonDecodeException(Exception):
+class InvalidContentType(RequestError):
+    def __init__(self, _type):
+        super().__init__(f"{_type} is an API blacklisted file extension.")
+
+class JsonDecodeException(RequestError):
     def __init__(self, raw):
         self.raw = raw
         super().__init__(f"Failed to decode json from API. Raw content:\n{self.raw}")
