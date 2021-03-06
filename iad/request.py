@@ -14,7 +14,7 @@ class Request:
                 self.data.add_field(k, v)
 
             if files:
-                self.data.add_field(k, files['bytes'], filename=f'file.{files["format"]}') # upload with correct file extension
+                self.data.add_field("image", files['bytes'], filename=f'file.{files["format"]}') # upload with correct file extension
         
     async def json(self):
         if self.method == 'GET':
