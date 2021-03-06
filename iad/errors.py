@@ -1,8 +1,9 @@
 class IADError(Exception): pass
 
+
 class RequestError(IADError):
     def __init__(self, json):
-        self.json = json or {}
+        self.json = __import__('ast').literal_eval(json) or {}
         super().__init__(json.get("error", "fatal error getting upload info."))
 
     def __repr__(self):
