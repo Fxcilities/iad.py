@@ -25,6 +25,8 @@ This file will contain all the changes in every version.
 - Better error handling (`iad.errors`)
 - Major code improvments and effeciency
 - Updated upload method for `file_format` argument and updated request class.
+- Delete endpoint method
+- Documentation strings.
 
 
 [1.0.1]: https://github.com/Fxcilities/iad.py/releases/tag/1.0.1
