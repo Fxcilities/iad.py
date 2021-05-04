@@ -12,8 +12,10 @@ from .upload import Upload
 
 
 class ImADev:
-    """
-    Main class for iad.py
+    """Base class of ImADev, this class will upload, and manage all files.
+
+    Args:
+        token: Your ImADev token. Must be a string.
     """
 
     DISABLED = ('php', 'html', 'js', 'css', 'ts')
