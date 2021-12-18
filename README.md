@@ -2,7 +2,7 @@
 
 # iad
 
-### iadpy is a wrapper for the [Im A Dev](https://im-a-dev.xyz) file uploader in python.
+### iadpy is a wrapper for the [monke.cc](https://monke.cc) file uploader in python.
 
 - Async wrapper (`async`, `await`)
 - Proper rate limiting
